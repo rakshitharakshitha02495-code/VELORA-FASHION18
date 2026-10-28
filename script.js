@@ -1,73 +1,35 @@
-// Product Database
+// Global Products Database
 const products = [
-  {
-    id: 1,
-    title: "Aura Embroidered Silk Evening Gown",
-    category: "gowns",
-    price: 1850,
-    img: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    id: 2,
-    title: "Celestial Tulle Gala Gown",
-    category: "couture",
-    price: 2400,
-    img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    id: 3,
-    title: "Velora Ivory Silk Tailored Suit",
-    category: "rtw",
-    price: 950,
-    img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80"
-  },
-  {
-    id: 4,
-    title: "Rose Quartz Draped Midi Dress",
-    category: "rtw",
-    price: 680,
-    img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80"
-  }
+  { id: 1, title: "Aura Embroidered Silk Evening Gown", category: "gowns", price: 1850, img: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=800&q=80" },
+  { id: 2, title: "Celestial Tulle Gala Gown", category: "couture", price: 2400, img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80" },
+  { id: 3, title: "Velora Ivory Silk Tailored Suit", category: "rtw", price: 950, img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" },
+  { id: 4, title: "Rose Quartz Draped Midi Dress", category: "rtw", price: 680, img: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80" }
 ];
 
-// App State
-let cart = [];
-let wishlist = [];
+// Persistent State with LocalStorage
+let cart = JSON.parse(localStorage.getItem('velora_cart')) || [];
 let activeCategory = 'all';
 
-// Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  renderHomeProducts();
-  renderCollectionsProducts();
+  updateCartUI();
+  
+  if (document.getElementById('home-featured-grid')) {
+    renderHomeProducts();
+  }
+  
+  if (document.getElementById('collections-grid')) {
+    renderCollectionsProducts();
+  }
 });
 
-// Single Page Application Navigation
-function navigateTo(pageId, event) {
-  if(event) event.preventDefault();
-
-  document.querySelectorAll('.page-view').forEach(page => {
-    page.classList.remove('active');
-  });
-
-  const targetPage = document.getElementById(`${pageId}-page`);
-  if(targetPage) {
-    targetPage.classList.add('active');
-  }
-
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.classList.remove('active');
-  });
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// Render Products
+// Render Home Page Highlights
 function renderHomeProducts() {
   const container = document.getElementById('home-featured-grid');
   if(!container) return;
   container.innerHTML = products.slice(0, 4).map(product => createProductCard(product)).join('');
 }
 
+// Render Catalog Page
 function renderCollectionsProducts() {
   const container = document.getElementById('collections-grid');
   if(!container) return;
@@ -86,9 +48,6 @@ function createProductCard(product) {
         <img src="${product.img}" alt="${product.title}">
         <div class="product-actions">
           <button class="btn btn-primary" onclick="addToCart(${product.id})">Add To Bag</button>
-          <button class="btn btn-outline" style="background:white; color:black;" onclick="toggleWishlistItem(${product.id})">
-            <i class="fa-regular fa-heart"></i>
-          </button>
         </div>
       </div>
       <div class="product-info">
@@ -99,7 +58,7 @@ function createProductCard(product) {
   `;
 }
 
-// Filter and Sort
+// Category Filter Function
 function setCategoryFilter(category, btnElement) {
   activeCategory = category;
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -107,17 +66,13 @@ function setCategoryFilter(category, btnElement) {
   renderCollectionsProducts();
 }
 
-function filterCategory(cat) {
-  navigateTo('collections');
-  setCategoryFilter(cat);
-}
-
-// Cart Drawer Functions
+// Shopping Bag Drawer Functions
 function toggleCartDrawer() {
   const drawer = document.getElementById('cart-drawer');
   const overlay = document.getElementById('cart-drawer-overlay');
-  
-  if(drawer.classList.contains('open')) {
+  if (!drawer || !overlay) return;
+
+  if (drawer.classList.contains('open')) {
     drawer.classList.remove('open');
     overlay.style.display = 'none';
   } else {
@@ -128,22 +83,28 @@ function toggleCartDrawer() {
 
 function addToCart(productId) {
   const item = products.find(p => p.id === productId);
-  if(!item) return;
+  if (!item) return;
 
   const existing = cart.find(c => c.id === productId);
-  if(existing) {
+  if (existing) {
     existing.qty += 1;
   } else {
     cart.push({ ...item, qty: 1 });
   }
 
+  saveCart();
   updateCartUI();
   toggleCartDrawer();
 }
 
 function removeFromCart(productId) {
   cart = cart.filter(c => c.id !== productId);
+  saveCart();
   updateCartUI();
+}
+
+function saveCart() {
+  localStorage.setItem('velora_cart', JSON.stringify(cart));
 }
 
 function updateCartUI() {
@@ -151,14 +112,16 @@ function updateCartUI() {
   const cartBody = document.getElementById('cart-body');
   const subtotalEl = document.getElementById('cart-subtotal-val');
 
+  if (!badge || !cartBody || !subtotalEl) return;
+
   const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
   const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
 
   badge.innerText = totalQty;
   subtotalEl.innerText = `$${subtotal.toLocaleString()}`;
 
-  if(cart.length === 0) {
-    cartBody.innerHTML = `<p style="text-align:center; color:#888; margin-top:40px;">Your bag is currently empty.</p>`;
+  if (cart.length === 0) {
+    cartBody.innerHTML = `<p style="text-align:center; color:#888; margin-top:40px;">Your shopping bag is currently empty.</p>`;
   } else {
     cartBody.innerHTML = cart.map(item => `
       <div class="cart-item">
@@ -174,12 +137,13 @@ function updateCartUI() {
 }
 
 function checkout() {
-  if(cart.length === 0) {
+  if (cart.length === 0) {
     alert("Your shopping bag is empty.");
     return;
   }
-  alert("Thank you for choosing Velora Fashion. Your private checkout session is being initiated.");
+  alert("Thank you for choosing Velora Fashion. Your private checkout session is being prepared.");
   cart = [];
+  saveCart();
   updateCartUI();
   toggleCartDrawer();
 }
@@ -188,6 +152,6 @@ function checkout() {
 function handleFormSubmit(event) {
   event.preventDefault();
   const name = document.getElementById('fullName').value;
-  alert(`Thank you ${name}. Your bespoke consultation request has been received. Our concierge will contact you shortly.`);
+  alert(`Thank you, ${name}. Your bespoke consultation request has been received. Our atelier concierge will contact you shortly.`);
   event.target.reset();
 }
