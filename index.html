@@ -3,168 +3,89 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Velora Fashion — Luxury Womenswear & Haute Couture</title>
-  
-  <!-- Google Fonts & FontAwesome -->
+  <title>Velora Fashion — Modern Luxury Womenswear</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- Top Announcement Bar -->
   <div class="announcement-bar">
-    <span>Complimentary Express Worldwide Shipping on Orders Above \$500 | Discover the New Spring Haute Couture Collection</span>
+    <span>Complimentary Worldwide Express Delivery on Orders Above $500</span>
   </div>
 
-  <!-- Header / Navigation -->
   <header class="header">
     <div class="header-container">
-      <div class="brand-logo-wrapper" onclick="navigateTo('home')">
-        <img src="v2.png" alt="Velora Fashion Logo" class="brand-logo-img">
-      </div>
-
+      <a href="index.html"><img src="v2.png" alt="Velora Fashion Logo" class="brand-logo-img"></a>
       <nav class="nav-links">
-        <a href="#" class="nav-link active" onclick="navigateTo('home', event)">Home</a>
-        <a href="#" class="nav-link" onclick="navigateTo('collections', event)">Collections</a>
-        <a href="#" class="nav-link" onclick="navigateTo('lookbook', event)">Lookbook</a>
-        <a href="#" class="nav-link" onclick="navigateTo('about', event)">Our Atelier</a>
-        <a href="#" class="nav-link" onclick="navigateTo('appointment', event)">Bespoke Booking</a>
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="collections.html" class="nav-link">Collections</a>
+        <a href="lookbook.html" class="nav-link">Lookbook</a>
+        <a href="about.html" class="nav-link">Our Atelier</a>
+        <a href="appointment.html" class="nav-link">Bespoke Booking</a>
       </nav>
-
       <div class="header-actions">
-        <button class="icon-btn" onclick="openSearchModal()" title="Search">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-        <button class="icon-btn" onclick="toggleWishlist()" title="Wishlist">
-          <i class="fa-regular fa-heart"></i>
-          <span class="badge" id="wishlist-badge">0</span>
-        </button>
-        <button class="icon-btn" onclick="toggleCartDrawer()" title="Shopping Bag">
-          <i class="fa-solid fa-bag-shopping"></i>
-          <span class="badge" id="cart-badge">0</span>
-        </button>
+        <button class="icon-btn" onclick="toggleCartDrawer()"><i class="fa-solid fa-bag-shopping"></i><span class="badge" id="cart-badge">0</span></button>
       </div>
     </div>
   </header>
 
-  <!-- HOME PAGE -->
-  <section id="home-page" class="page-view active">
-    <!-- Hero Banner -->
-    <div class="hero">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <img src="v2.png" alt="Velora Logo Badge" class="hero-logo-badge">
-        <span class="hero-sub">Elegance Redefined • Spring / Summer Couture</span>
-        <h1>Sophisticated Luxury for the Modern Woman</h1>
-        <p>Unveiling hand-crafted silhouettes, bespoke draping, and timeless tailoring designed to empower your inner allure.</p>
-        <div class="hero-btns">
-          <button class="btn btn-primary" onclick="navigateTo('collections')">Explore Collections</button>
-          <button class="btn btn-outline" onclick="navigateTo('appointment')">Book Consultation</button>
-        </div>
+  <div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <img src="v2.png" alt="Velora Badge" class="hero-logo-badge">
+      <span class="hero-sub">Elegance Redefined • Spring / Summer Couture</span>
+      <h1>Sophisticated Luxury for the Modern Woman</h1>
+      <p>Unveiling hand-crafted silhouettes, bespoke draping, and timeless tailoring designed to empower your inner allure.</p>
+      <div class="hero-btns">
+        <a href="collections.html" class="btn btn-primary">Explore Collections</a>
+        <a href="appointment.html" class="btn btn-outline">Book Consultation</a>
       </div>
     </div>
+  </div>
 
-    <!-- Featured Categories -->
-    <section class="section">
-      <div class="section-title">
-        <h2>Curated Categories</h2>
-        <p>Explore luxury garments meticulously handcrafted for every occasion</p>
-      </div>
-      <div class="grid grid-3">
-        <div class="cat-card" onclick="filterCategory('gowns')">
-          <img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=900&q=80" alt="Evening Gowns">
-          <div class="cat-overlay">
-            <h3>Evening Gowns</h3>
-            <span>Discover Silk & Tulle Elegance →</span>
-          </div>
-        </div>
-        <div class="cat-card" onclick="filterCategory('couture')">
-          <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=900&q=80" alt="Haute Couture">
-          <div class="cat-overlay">
-            <h3>Haute Couture</h3>
-            <span>Hand-Embroidered Masterpieces →</span>
-          </div>
-        </div>
-        <div class="cat-card" onclick="filterCategory('rtw')">
-          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80" alt="Ready To Wear">
-          <div class="cat-overlay">
-            <h3>Ready-To-Wear</h3>
-            <span>Modern Suits & Day Dresses →</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Trending Products Preview -->
-    <section class="section bg-blush">
-      <div class="section-title">
-        <h2>Atelier Highlights</h2>
-        <p>Our most sought-after silhouettes of the season</p>
-      </div>
-      <div class="grid grid-4" id="home-featured-grid">
-        <!-- Injected dynamically via JS -->
-      </div>
-      <div style="text-align: center; margin-top: 3rem;">
-        <button class="btn btn-primary" onclick="navigateTo('collections')">View Full Catalog</button>
-      </div>
-    </section>
+  <section class="section bg-blush">
+    <div class="section-title">
+      <h2>Atelier Highlights</h2>
+      <p>Our most sought-after silhouettes of the season</p>
+    </div>
+    <div class="grid grid-4" id="home-featured-grid"></div>
   </section>
 
-  <!-- COLLECTIONS PAGE -->
-  <section id="collections-page" class="page-view">
-    <div class="page-header">
-      <h1>The Womenswear Collection</h1>
-      <p>Browse through our exquisite range of luxury apparel</p>
+  <div class="cart-drawer-overlay" id="cart-drawer-overlay" onclick="toggleCartDrawer()"></div>
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-header">
+      <h3>Your Shopping Bag</h3>
+      <button class="icon-btn" onclick="toggleCartDrawer()"><i class="fa-solid fa-xmark"></i></button>
     </div>
-    
-    <div class="filter-bar">
-      <div class="cat-tabs">
-        <button class="tab-btn active" onclick="setCategoryFilter('all', this)">All Creations</button>
-        <button class="tab-btn" onclick="setCategoryFilter('gowns', this)">Evening Gowns</button>
-        <button class="tab-btn" onclick="setCategoryFilter('couture', this)">Haute Couture</button>
-        <button class="tab-btn" onclick="setCategoryFilter('rtw', this)">Ready-To-Wear</button>
-      </div>
-      <select id="sort-select" class="custom-select" onchange="sortProducts(this.value)">
-        <option value="featured">Sort by: Featured</option>
-        <option value="low-high">Price: Low to High</option>
-        <option value="high-low">Price: High to Low</option>
-      </select>
+    <div class="cart-body" id="cart-body"></div>
+    <div class="cart-footer">
+      <div class="cart-subtotal"><span>Subtotal:</span><strong id="cart-subtotal-val">$0.00</strong></div>
+      <button class="btn btn-primary" style="width: 100%;" onclick="checkout()">Proceed to Checkout</button>
     </div>
+  </div>
 
-    <div class="grid grid-4" id="collections-grid">
-      <!-- Injected dynamically via JS -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <img src="v2.png" alt="Velora Logo" class="footer-logo">
+        <p>Defining modern femininity through timeless couture and bespoke craftsmanship.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="collections.html">Collections</a></li>
+          <li><a href="lookbook.html">Lookbook</a></li>
+          <li><a href="about.html">Atelier</a></li>
+          <li><a href="appointment.html">Bespoke Consultation</a></li>
+        </ul>
+      </div>
     </div>
-  </section>
+  </footer>
 
-  <!-- LOOKBOOK PAGE -->
-  <section id="lookbook-page" class="page-view">
-    <div class="page-header">
-      <h1>Spring / Summer Editorial Lookbook</h1>
-      <p>A visual journey through light, fluid silks, and opulent embroideries</p>
-    </div>
-    <div class="lookbook-grid">
-      <div class="lookbook-item item-large">
-        <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=80" alt="Lookbook 1">
-        <div class="lookbook-caption">Look 01 — Velvet & Emerald Silk Gown</div>
-      </div>
-      <div class="lookbook-item">
-        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80" alt="Lookbook 2">
-        <div class="lookbook-caption">Look 02 — Blush Satin Blazer & Pleated Trousers</div>
-      </div>
-      <div class="lookbook-item">
-        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" alt="Lookbook 3">
-        <div class="lookbook-caption">Look 03 — Minimalist Champagne Shift Dress</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT PAGE -->
-  <section id="about-page" class="page-view">
-    <div class="about-hero">
-      <img src="v2.png" alt="Velora Fashion Logo" class="about-logo">
-      <h2>Crafting Timeless Sophistication</h2>
-      <p>At Velora Fashion, every garment
+  <script src="script.js"></script>
+</body>
+</html>
