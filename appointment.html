@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bespoke Consultation — Velora Fashion</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-container">
+      <a href="index.html"><img src="v2.png" alt="Velora Logo" class="brand-logo-img"></a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="collections.html" class="nav-link">Collections</a>
+        <a href="lookbook.html" class="nav-link">Lookbook</a>
+        <a href="about.html" class="nav-link">Our Atelier</a>
+        <a href="appointment.html" class="nav-link active">Bespoke Booking</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-header">
+    <h1>Book a Private Atelier Consultation</h1>
+    <p>Experience personalized couture styling with our master designers</p>
+  </div>
+
+  <div class="form-wrapper">
+    <form id="appointment-form" onsubmit="handleFormSubmit(event)">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="fullName">Full Name *</label>
+          <input type="text" id="fullName" required placeholder="e.g. Lady Victoria Spencer">
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" required placeholder="victoria@example.com">
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone / WhatsApp *</label>
+          <input type="tel" id="phone" required placeholder="+1 (555) 019-2834">
+        </div>
+        <div class="form-group">
+          <label for="serviceType">Inquiry Type *</label>
+          <select id="serviceType" class="custom-select" required>
+            <option value="">Select a Consultation Service</option>
+            <option value="Bridal Couture">Custom Bridal & Wedding Couture</option>
+            <option value="Red Carpet / Gala">Gala & Red Carpet Eveningwear</option>
+            <option value="Personal Styling">Bespoke Wardrobe Styling</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="preferredDate">Preferred Date *</label>
+          <input type="date" id="preferredDate" required>
+        </div>
+        <div class="form-group">
+          <label for="preferredTime">Preferred Time *</label>
+          <select id="preferredTime" class="custom-select" required>
+            <option value="10:00 AM">10:00 AM - Morning Slot</option>
+            <option value="02:00 PM">02:00 PM - Afternoon Slot</option>
+            <option value="05:00 PM">05:00 PM - Evening Slot</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-top: 1.5rem;">
+        <label for="notes">Special Vision Notes</label>
+        <textarea id="notes" rows="4" placeholder="Tell us about your event, preferred color palette..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;">Confirm Booking Request</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
